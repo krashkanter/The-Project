@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Slack {
 
-    private String botToken = System.getenv("SLACK_BOT_TOKEN");
+    private final String botToken = System.getenv("SLACK_BOT_TOKEN");
 
     public String createChannel(String channelName) {
         StringBuilder response = new StringBuilder();
@@ -28,7 +28,7 @@ public class Slack {
             conn.setRequestProperty("Content-Type", "application/json; utf-8");
             conn.setDoOutput(true);
 
-            String jsonPayload = "{\"name\":\"" + channelName + "\", \"is_private\":\"" + "false";
+            String jsonPayload = "{\"name\":\"" + channelName + "\", \"is_private\":false}";
 
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
@@ -60,18 +60,19 @@ public class Slack {
 
         try {
             rootNode = objectMapper.readTree(response.toString());
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         assert rootNode != null;
 
-        return rootNode.get("channel").asText();
+        return rootNode.path("channel").path("id").asText();
     }
 
-    public void createSummary(String incidentSummary) {
+    public String createSummary(String incidentSummary) {
+        StringBuilder response = new StringBuilder();
         String channelId = "C09HG03C38X";
-        String targetURL = "https://slack.com/api/chat.postmessage";
+        String targetURL = "https://slack.com/api/chat.postMessage";
 
         try {
             URL url = new URL(targetURL);
@@ -88,14 +89,33 @@ public class Slack {
                 os.write(input, 0, input.length);
             }
 
+            int statusCode = conn.getResponseCode();
+
+            InputStream inputStream;
+            if (statusCode >= 200 && statusCode < 400) {
+                inputStream = conn.getInputStream();
+            } else {
+                inputStream = conn.getErrorStream();
+            }
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+            }
+
             conn.disconnect();
 
         } catch (Exception ignored) {
 
         }
+
+        return response.toString();
     }
 
-    public void inviteUsers(String channelId, List<String> invitedUsers) {
+    public String inviteUsers(String channelId, List<String> invitedUsers) {
+        StringBuilder response = new StringBuilder();
         String targetURL = "https://slack.com/api/conversations.invite";
 
         try {
@@ -113,11 +133,26 @@ public class Slack {
                 byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
+            int statusCode = conn.getResponseCode();
 
-            conn.disconnect();
+            InputStream inputStream;
+            if (statusCode >= 200 && statusCode < 400) {
+                inputStream = conn.getInputStream();
+            } else {
+                inputStream = conn.getErrorStream();
+            }
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+            }
 
         } catch (Exception ignored) {
 
         }
+
+        return response.toString();
     }
 }
