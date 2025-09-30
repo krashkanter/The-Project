@@ -38,6 +38,10 @@ The workflow is entirely **event-driven**, starting from a single API call.
 
 ---
 
+![Architechture](./Architecture.svg)
+
+---
+
 ## 🚀 Setup and Configuration
 
 ### ✅ Prerequisites
