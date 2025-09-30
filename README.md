@@ -162,7 +162,7 @@ Check logs, your **Slack workspace**, and **GitHub repository** to see the agent
 ## ⚖️ Trade-offs and Assumptions
 
 - **LLM Reliability**  
-  Effectiveness depends on the reasoning of the chosen LLM (`qwen2:7b`). Larger models may be more reliable but require more resources.
+  Effectiveness depends on the reasoning of the chosen LLM (`qwen3:8B`). Larger models may be more reliable but require more resources.
 
 - **Input Format**  
   API accepts plain `text/plain` for flexibility, at the cost of no strict schema. A `JSON` payload would enforce structure.
