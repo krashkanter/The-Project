@@ -176,9 +176,3 @@ Check logs, your **Slack workspace**, and **GitHub repository** to see the agent
 
 - **Idempotency**  
   Not idempotent. Sending the same request multiple times creates duplicate incidents, Slack channels, and GitHub issues.
-
----
-
-## 📜 License
-
-MIT License – feel free to use, modify, and distribute.
