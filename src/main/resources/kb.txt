@@ -1,0 +1,42 @@
+[
+  {
+    "id": "disk_full",
+    "incident_type": "Disk Full",
+    "text": "Disk space is low or full. Severity depends on usage threshold. Actions: clear temp files, extend disk, migrate data.",
+    "remediation_steps": {
+      "low": "Clear temporary/log files.",
+      "medium": "Extend disk or clean up unused data.",
+      "high": "Immediately clear space or migrate data to prevent downtime."
+    }
+  },
+  {
+    "id": "cpu_high",
+    "incident_type": "CPU High Usage",
+    "text": "CPU usage is high. Severity depends on duration and percentage. Actions: stop unnecessary tasks, restart service, scale infra.",
+    "remediation_steps": {
+      "low": "Check running processes, stop unnecessary tasks.",
+      "medium": "Restart resource-heavy service or adjust limits.",
+      "high": "Scale infrastructure or kill runaway processes immediately."
+    }
+  },
+  {
+    "id": "service_down",
+    "incident_type": "Service Down",
+    "text": "A critical service is unavailable or unstable. Severity depends on downtime duration. Actions: check logs, restart service, failover.",
+    "remediation_steps": {
+      "low": "Check service status and logs.",
+      "medium": "Restart the affected service.",
+      "high": "Escalate to on-call and trigger failover/redundancy."
+    }
+  },
+  {
+    "id": "network_latency",
+    "incident_type": "Network Latency",
+    "text": "High latency detected in network traffic. Severity depends on sustained delay. Actions: check DNS, investigate firewall, reroute traffic.",
+    "remediation_steps": {
+      "low": "Check local connectivity and DNS resolution.",
+      "medium": "Investigate upstream provider or firewall rules.",
+      "high": "Escalate to network team and reroute traffic if possible."
+    }
+  }
+]

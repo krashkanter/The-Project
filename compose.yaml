@@ -1,0 +1,11 @@
+services:
+  pgvector:
+    image: "pgvector/pgvector:pg18"
+    environment:
+      - "POSTGRES_DB=xlbizvectordb"
+      - "POSTGRES_PASSWORD=testpassword"
+      - "POSTGRES_USER=testuser"
+    labels:
+      - "org.springframework.boot.service-connection=postgres"
+    ports:
+      - "5432:5432"
