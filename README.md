@@ -114,7 +114,7 @@ spring.ai.ollama.init.timeout=5m
 spring.ai.ollama.init.pull-model-strategy=always
 
 # Database Connection
-spring.datasource.url=jdbc:postgresql://localhost:5432/xlbizvectordb
+spring.datasource.url=jdbc:postgresql://localhost:5432/vectordb
 spring.datasource.username=your_db_user
 spring.datasource.password=your_db_password
 
@@ -135,8 +135,8 @@ GITHUB_TOKEN=ghp_your-github-personal-access-token
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/krashkanter/XLBiz-Project.git
-   cd XLBiz-Project
+   git clone https://github.com/krashkanter/The-Project.git
+   cd The-Project
    ```
 
 2. Run the application:
